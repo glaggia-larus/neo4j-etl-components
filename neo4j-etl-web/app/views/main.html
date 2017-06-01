@@ -1,0 +1,5 @@
+<div class="container">
+    <div class="row bordered" ng-class="{'node': el['graph-object-type'] === 'Node', 'relationship': el['graph-object-type'] === 'Relationship'}" ng-repeat="el in $ctrl.mapping">
+        {{el['graph-object-type']}} - {{$ctrl.getLabel(el)}}
+    </div>
+</div>
