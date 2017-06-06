@@ -1,5 +1,16 @@
 <div class="container">
-    <div class="row bordered" ng-class="{'node': el['graph-object-type'] === 'Node', 'relationship': el['graph-object-type'] === 'Relationship'}" ng-repeat="el in $ctrl.mapping">
-        {{el['graph-object-type']}} - {{$ctrl.getLabel(el)}}
+    <div class="row bordered" ng-click="el.editing=true" ng-class="{'node': el['graph-object-type'] === 'Node', 'relationship': el['graph-object-type'] === 'Relationship'}" ng-repeat="el in $ctrl.mapping">
+        <div ng-if="!el.editing  && el['graph-object-type']==='Node'">{{el['graph-object-type']}} - {{$ctrl.getLabel(el)}}</div>
+        <div ng-if="el.editing && el['graph-object-type']==='Node'">
+            <input type="text" ng-init="label = $ctrl.getLabel(el)" ng-model="label" />
+            <button ng-click="$ctrl.save(el, label, $event)">SAVE</button>
+        </div>
+        <div ng-if="!el.editing && el['graph-object-type']==='Relationship'">{{el['graph-object-type']}} - {{$ctrl.getFrom(el) + $ctrl.getLabel(el) + $ctrl.getTo(el)}}</div>
+        <div ng-if="el.editing && el['graph-object-type']==='Relationship'">
+            <div>{{$ctrl.getFrom(el)}}</div>
+            <input type="text" ng-init="label = $ctrl.getLabel(el)" ng-model="label" />
+            <div>{{$ctrl.getTo(el)}}</div>
+            <button ng-click="$ctrl.save(el, label, $event)">SAVE</button>
+        </div>
     </div>
 </div>
